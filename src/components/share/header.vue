@@ -1,8 +1,9 @@
 <template>
     <v-toolbar color="white darken-3" class="mb-1">
         <v-tabs>
-            <v-tab>Thành Viên</v-tab>
-            <v-tab>Đợi Phản Hồi</v-tab>
+            <v-tab to="/share">Thành Viên</v-tab>
+            <v-tab to="/share/request">Đợi Phản Hồi</v-tab>
+            <v-tab to="/share/invite">Lời Mời</v-tab>
         </v-tabs>
         <v-divider class="mx-4" inset vertical></v-divider>
 
@@ -38,12 +39,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-snackbar v-model="error_show" top color="error" center>
-            {{error}}
-            <v-btn dark text @click="reset-error">
-                Close
-            </v-btn>
-        </v-snackbar>
+
     </v-toolbar>
 </template>
 <script>
@@ -77,7 +73,11 @@
             },
             invite:async function(){
                await this.$store.dispatch('share/add-member',this.user.emailAddress);
-               return this.reset()
+               this.reset()
+            },
+            wait:async function(){
+               this.$store.state.share.tab = 3
+               await this.$store.dispatch('share/get-request-member');
             },
             close() {
                 this.add_user = false;

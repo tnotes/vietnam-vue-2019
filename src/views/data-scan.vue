@@ -1,12 +1,16 @@
 <template>
-    <h1>Hello world</h1>
+    <div>
+        <HeaderScan/>
+        <DataScan/>
+    </div>
 </template>
 
 
 <script>
-  export default {
-    props: {
+    import HeaderScan from '../components/data-scan/header';
+    import DataScan from '../components/data-scan/data';
 
-    },
-  }
+    export default {
+        components:{HeaderScan,DataScan}
+    }
 </script>

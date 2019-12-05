@@ -1,18 +1,24 @@
 import axios from 'axios';
 import url from './url';
 const state = {
-  keyword:[]
+  keyword:[],
+  keyword_scan:[],
+  loadPage:false
 };
 
 const actions = {
+
   'get-keyword':async function({state}){
+    if(state.loadPage) return;
     let options = {
-      url:url+'/keyword',
+      url:url+'/keyword?limit=100000000',
       method:'get',
       withCredentials:true
     };
     let {data} = await axios(options);
-    return this.keyword = data;
+    state.loadPage = true;
+    state.keyword = data;
+    state.keyword_scan = data;
   },
   'update-keyword':async function({state},obj){
     let options = {
@@ -22,6 +28,7 @@ const actions = {
       data:obj
     };
     let response = await axios(options);
+    console.log(response);
 
   },
   'push-keyword':async function({state},obj){
@@ -31,7 +38,9 @@ const actions = {
       withCredentials:true,
       data:obj
     };
-    let response = await axios(options);
+    let {data} = await axios(options);
+
+    state.keyword.push(data);
 
   },
   'remove-keyword':async function({state},obj){
@@ -41,7 +50,12 @@ const actions = {
       withCredentials:true,
       data:obj
     };
-    let response = await axios(options);
+    let {data} = await axios(options);
+    state.keyword = state.keyword.filter(({id})=>obj.id !== id)
+  },
+  'set-keyword-scan':function({state},keywords){
+
+    state.keyword_scan = keywords;
   }
 
 };

@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import( '../views/Home.vue')
+    component: () => import( '../views/data-scan.vue')
 
   },
   {
@@ -18,7 +18,42 @@ const routes = [
   {
     path: '/share',
     name: 'share',
-    component: () => import( '../views/share.vue')
+    component: () => import( '../views/share.vue'),
+    children:[
+        {
+          path:'',
+          name:'member',
+          component:() => import( '../components/share/card/member.vue'),
+        },
+        {
+          path:'request',
+          name:'request',
+          component:() => import( '../components/share/card/request.vue'),
+        },
+        {
+          path:'invite',
+          name:'invite',
+          component:() => import( '../components/share/card/invite.vue'),
+        }
+    ]
+  },
+  {
+    name:'shop',
+    path:'/shop',
+    component:() => import( '../views/shop.vue'),
+    children:[
+      {
+        name:'cua-hang',
+        path:'',
+        component:() => import( '../components/shop/cua-hang')
+      },
+      {
+        name:'cua-hang',
+        path:'doi-thu',
+        component:() => import( '../components/shop/doi-thu')
+      },
+
+    ]
   }
 ];
 
