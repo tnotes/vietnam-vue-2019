@@ -309,7 +309,7 @@
                     Object.assign(this.desserts[this.editedIndex], this.editedItem)
                 } else {
                     this.$store.dispatch('keyword/push-keyword',this.editedItem);
-                    this.desserts.push(this.editedItem)
+                 
                 }
                 this.close();
 

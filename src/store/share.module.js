@@ -13,6 +13,7 @@ const actions = {
     
     'get-member':async function({commit,state}){
         if(state.loadPage) return;
+        state.loadPage = true;
         let {data} = await axios.get(url+'/share',{withCredentials:true});
         return state.members = data.filter(({status_invite})=>status_invite);
     },

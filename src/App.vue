@@ -56,7 +56,7 @@
                 <span class="hidden-sm-and-down">Dmart Computer</span>
             </v-toolbar-title>
             <v-spacer />
-            <v-btn to='/logout' icon>
+            <v-btn href='/logout' icon>
                 <v-icon>mdi-logout</v-icon> 
             </v-btn>
             

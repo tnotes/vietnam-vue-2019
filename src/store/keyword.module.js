@@ -2,23 +2,31 @@ import axios from 'axios';
 import url from './url';
 const state = {
   keyword:[],
-  keyword_scan:[],
-  loadPage:false
+  keyword_pagination:[]
 };
 
 const actions = {
-
   'get-keyword':async function({state}){
     if(state.loadPage) return;
     let options = {
-      url:url+'/keyword?limit=100000000',
+      url:url+'/keyword?limit=1000000000000',
       method:'get',
       withCredentials:true
     };
     let {data} = await axios(options);
     state.loadPage = true;
     state.keyword = data;
-    state.keyword_scan = data;
+  },
+  'get-keyword-pagination':async function({state},pagination = 1){
+    if(state.loadPage) return;
+    let options = {
+      url:url+'/keyword?limit=10&skip='+(pagination-1)*10,
+      method:'get',
+      withCredentials:true
+    };
+    let {data} = await axios(options);
+    state.loadPage = true;
+    state.keyword_pagination = data;
   },
   'update-keyword':async function({state},obj){
     let options = {
@@ -28,7 +36,7 @@ const actions = {
       data:obj
     };
     let response = await axios(options);
-    console.log(response);
+    
 
   },
   'push-keyword':async function({state},obj){
@@ -61,7 +69,9 @@ const actions = {
 };
 
 const mutations = {
-
+  setKeywordScan:(state)=>keyword=>{
+    state.keyword_scan = keyword;
+  }
 };
 
 export const keyword = {
